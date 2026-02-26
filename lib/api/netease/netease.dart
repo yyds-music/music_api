@@ -122,6 +122,53 @@ part 'module/vip_timemachine.dart';
 class Netease {
   Netease._();
 
+  //====================新增
+  /// 每日推荐歌单
+  static Future<Answer> recommendResource() {
+    return _recommendResource.call({}, []);
+  }
+
+  /// 每日推荐歌曲
+  static Future<Answer> recommendSongs() {
+    return _recommendSongs.call({}, []);
+  }
+
+  // 精品歌单 tags
+  static Future<Answer> playlistHighqualityTags() {
+    return _playlistHighqualityTags.call({}, []);
+  }
+
+  static Future<Answer> topPlaylistHighquality({
+    String cat = '全部',
+    int limit = 10,
+    int before = 0,
+  }) {
+    return _topPlaylistHighquality.call({"cat": cat, "limit": limit, "before": before}, []);
+  }
+
+  //发送验证码
+  static Future<Answer> captchaSend({
+    String ctcode = '86',
+    String phone = '',
+  }) {
+    return _captchaSend.call({'ctcode': ctcode, 'phone': phone}, []);
+  }
+
+  //手机号登录
+  static Future<Answer> loginCellphone({
+    String captcha = '',
+    String phone = '',
+  }) {
+    return _loginCellphone.call({'captcha': captcha, 'phone': phone}, []);
+  }
+
+  //歌手歌曲
+  static Future<Answer> artistSongs({required String id, int? page, int? size}) {
+    return _artistSongs.call({'id': id, 'page': page, 'size': size}, []);
+  }
+
+  //====================新增
+
   static Future<Answer> banner() {
     return _banner.call({}, []);
   }
@@ -201,8 +248,8 @@ class Netease {
     return _artistList.call({"initial": initial, "type": type, "area": area, "page": page, "size": size}, []);
   }
 
-  static Future<Answer> topArtists() {
-    return _topArtists.call({}, []);
+  static Future<Answer> topArtists({int? offset, int? limit}) {
+    return _topArtists.call({"offset": offset, "limit": limit}, []);
   }
 
   ///排行榜
@@ -210,14 +257,10 @@ class Netease {
     return _toplistDetail.call({}, []);
   }
 
-  ///排行榜
-  static Future<Answer> artistSongs({required String id, int? page, int? size}) {
-    return _artistSongs.call({"id": id, "page": page, "size": size}, []);
-  }
-
   static Future<Answer> api(String? path, {Map? params, List<Cookie> cookie = const []}) {
     if (!_api.containsKey(path)) {
-      return Future.value(const Answer(site: MusicSite.Netease).copy(code: 500, msg: "url:“$path”未被定义, 请检查", data: _api.keys.toList()));
+      return Future.value(
+          const Answer(site: MusicSite.Netease).copy(code: 500, msg: "url:“$path”未被定义, 请检查", data: _api.keys.toList()));
     }
     return _api[path]!.call(params ?? {}, cookie);
   }

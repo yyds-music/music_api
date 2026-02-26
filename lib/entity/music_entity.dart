@@ -1,6 +1,61 @@
-enum MusicSite { None, Mix, MyFreeMp3, Baidu, KuGou, KuWo, MiGu, Netease, QQ, AudioMack }
+enum MusicSite {
+  None,
+  Mix,
+  MyFreeMp3,
+  Baidu,
+  KuGou,
+  KuWo,
+  MiGu,
+  Netease,
+  QQ,
+  AudioMack
+}
 
 enum MusicFormat { LQ, PQ, HQ, SQ, ZQ24 }
+
+extension MusicSiteTitleZh on MusicSite {
+  String get titleZh {
+    switch (this) {
+      case MusicSite.None:
+        return "无";
+      case MusicSite.Mix:
+        return "聚合";
+      case MusicSite.MyFreeMp3:
+        return "MyFreeMp3";
+      case MusicSite.Baidu:
+        return "百度";
+      case MusicSite.KuGou:
+        return "酷狗";
+      case MusicSite.KuWo:
+        return "酷我";
+      case MusicSite.MiGu:
+        return "咪咕";
+      case MusicSite.Netease:
+        return "网易云";
+      case MusicSite.QQ:
+        return "QQ音乐";
+      case MusicSite.AudioMack:
+        return "AudioMack";
+    }
+  }
+}
+
+extension MusicFormatTitleZh on MusicFormat {
+  String get titleZh {
+    switch (this) {
+      case MusicFormat.LQ:
+        return "流畅";
+      case MusicFormat.PQ:
+        return "标准";
+      case MusicFormat.HQ:
+        return "高品";
+      case MusicFormat.SQ:
+        return "无损";
+      case MusicFormat.ZQ24:
+        return "母带24bit";
+    }
+  }
+}
 
 const allSite = [
   MusicSite.MyFreeMp3,
